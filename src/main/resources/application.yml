@@ -1,6 +1,31 @@
 logging:
   level:
     org.apache.coyote.http11.Http11InputBuffer: TRACE
+    top.tauyoung.twitch.external.TwitchApiClient: DEBUG
 spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          twitch-api:
+            default-request-headers:
+              Client-Id:
+            loggerLevel: basic
+            url: https://api.twitch.tv/helix
+      oauth2:
+        clientRegistrationId: twitch
+        enabled: true
   jackson:
     default-property-inclusion: NON_NULL
+  security:
+    oauth2:
+      client:
+        provider:
+          twitch:
+            token-uri: https://id.twitch.tv/oauth2/token
+        registration:
+          twitch:
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_post
+            client-id:
+            client-secret:

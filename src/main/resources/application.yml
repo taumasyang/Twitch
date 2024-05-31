@@ -15,6 +15,11 @@ spring:
       oauth2:
         clientRegistrationId: twitch
         enabled: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${DATABASE_PASSWORD:secret}
+    url: jdbc:mysql://${DATABASE_URL:localhost}:${DATABASE_PORT:3306}/twitch?createDatabaseIfNotExist=true
+    username: ${DATABASE_USERNAME:root}
   jackson:
     default-property-inclusion: NON_NULL
   security:

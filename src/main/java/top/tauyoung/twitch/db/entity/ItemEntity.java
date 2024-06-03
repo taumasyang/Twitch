@@ -1,13 +1,16 @@
 package top.tauyoung.twitch.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 import top.tauyoung.twitch.external.model.Clip;
 import top.tauyoung.twitch.external.model.Stream;
 import top.tauyoung.twitch.external.model.Video;
 import top.tauyoung.twitch.model.ItemType;
 
+@Table("items")
 public record ItemEntity(
-		Long id,
+		@Id Long id,
 		@JsonProperty("twitch_id") String twitchId,
 		String title,
 		String url,

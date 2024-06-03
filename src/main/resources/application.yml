@@ -1,6 +1,7 @@
 logging:
   level:
     org.apache.coyote.http11.Http11InputBuffer: TRACE
+    org.springframework.jdbc.core: DEBUG
     org.springframework.jdbc.datasource.init: DEBUG
     top.tauyoung.twitch.external.TwitchApiClient: DEBUG
 spring:

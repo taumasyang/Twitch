@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.tauyoung.twitch.db.entity.ItemEntity;
 import top.tauyoung.twitch.db.entity.UserEntity;
@@ -26,6 +27,7 @@ public class RecommendationService {
 		this.favoriteService = favoriteService;
 	}
 
+	@Cacheable("recommend_items")
 	public TypeGroupedItemList recommendItems(UserEntity userEntity) {
 		List<String> gameIds;
 		Set<String> exclusions = new HashSet<>();

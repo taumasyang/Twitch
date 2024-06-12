@@ -2,6 +2,7 @@ package top.tauyoung.twitch.favorite;
 
 import java.time.Instant;
 import java.util.List;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.tauyoung.twitch.db.entity.UserEntity;
@@ -21,6 +22,7 @@ public class FavoriteService {
 		this.favoriteRecordRepository = favoriteRecordRepository;
 	}
 
+	@CacheEvict(cacheNames = "recommend_items", key = "#user")
 	@Transactional
 	public void setFavoriteItem(UserEntity user, ItemEntity item) {
 		ItemEntity persistedItem = itemRepository.findByTwitchId(item.twitchId());
@@ -29,6 +31,7 @@ public class FavoriteService {
 		favoriteRecordRepository.save(new FavoriteRecordEntity(null, user.id(), persistedItem.id(), Instant.now()));
 	}
 
+	@CacheEvict(cacheNames = "recommend_items", key = "#user")
 	public void unsetFavoriteItem(UserEntity user, String twitchId) {
 		ItemEntity item = itemRepository.findByTwitchId(twitchId);
 		if (item != null) favoriteRecordRepository.delete(user.id(), item.id());

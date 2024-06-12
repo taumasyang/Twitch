@@ -2,6 +2,7 @@ package top.tauyoung.twitch.external;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.tauyoung.twitch.external.model.Clip;
 import top.tauyoung.twitch.external.model.Game;
@@ -16,10 +17,12 @@ public class TwitchService {
 		this.twitchApiClient = twitchApiClient;
 	}
 
+	@Cacheable("games_by_name")
 	public List<Game> getGames(String name) {
 		return twitchApiClient.getGames(name).data();
 	}
 
+	@Cacheable("top_games")
 	public List<Game> getTopGames() {
 		return twitchApiClient.getTopGames().data();
 	}

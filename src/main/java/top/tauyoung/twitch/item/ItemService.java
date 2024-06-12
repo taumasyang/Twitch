@@ -1,6 +1,7 @@
 package top.tauyoung.twitch.item;
 
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import top.tauyoung.twitch.external.model.Clip;
 import top.tauyoung.twitch.external.model.Stream;
@@ -17,6 +18,7 @@ public class ItemService {
 		this.twitchService = twitchService;
 	}
 
+	@Cacheable("items")
 	public TypeGroupedItemList getItems(String gameId) {
 		List<Video> videos = twitchService.getVideos(gameId, SEARCH_RESULT_SIZE);
 		List<Clip> clips = twitchService.getClips(gameId, SEARCH_RESULT_SIZE);

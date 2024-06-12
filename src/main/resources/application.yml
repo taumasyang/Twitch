@@ -5,6 +5,9 @@ logging:
     org.springframework.jdbc.datasource.init: DEBUG
     top.tauyoung.twitch.external.TwitchApiClient: DEBUG
 spring:
+  cache:
+    caffeine:
+      spec: expireAfterWrite=1m
   cloud:
     openfeign:
       client:

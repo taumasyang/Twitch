@@ -4,6 +4,7 @@ import { LikeOutlined, FireOutlined } from '@ant-design/icons'
 import { logout, getFavoriteItem, getTopGames, searchGameById, getRecommendations } from './utils'
 import PageHeader from './components/PageHeader'
 import CustomSearch from './components/CustomSearch'
+import Home from './components/Home'
 const { Header, Content, Sider } = Layout
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false)
@@ -75,7 +76,7 @@ function App() {
 						className='site-layout-background'
 						style={{ padding: 24, margin: 0, height: 800, overflow: 'auto' }}
 					>
-						{'Home'}
+						<Home resources={resources} loggedIn={loggedIn} favoriteItems={favoriteItems} />
 					</Content>
 				</Layout>
 			</Layout>

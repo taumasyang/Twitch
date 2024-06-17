@@ -32,6 +32,10 @@ function App() {
 		key === 'recommendation'
 			? getRecommendations().then(data => setResources(data))
 			: searchGameById(key).then(data => setResources(data))
+	const favoriteOnChange = () =>
+		getFavoriteItem()
+			.then(data => setFavoriteItems(data))
+			.catch(err => message.error(err.message))
 	const mapTopGamesToProps = topGames => [
 		{ label: 'Recommend for you!', key: 'recommendation', icon: <LikeOutlined /> },
 		{
@@ -76,7 +80,12 @@ function App() {
 						className='site-layout-background'
 						style={{ padding: 24, margin: 0, height: 800, overflow: 'auto' }}
 					>
-						<Home resources={resources} loggedIn={loggedIn} favoriteItems={favoriteItems} />
+						<Home
+							resources={resources}
+							loggedIn={loggedIn}
+							favoriteOnChange={favoriteOnChange}
+							favoriteItems={favoriteItems}
+						/>
 					</Content>
 				</Layout>
 			</Layout>

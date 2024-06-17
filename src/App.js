@@ -9,6 +9,7 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState(false)
 	const [favoriteItems, setFavoriteItems] = useState([])
 	const [topGames, setTopGames] = useState([])
+	const [resources, setResources] = useState({ videos: [], clips: [], streams: [] })
 	useEffect(() => {
 		getTopGames()
 			.then(data => setTopGames(data))
@@ -25,6 +26,7 @@ function App() {
 				message.success('Successfully Signed out')
 			})
 			.catch(err => message.error(err.message))
+	const customSearchOnSuccess = data => setResources(data)
 	const mapTopGamesToProps = topGames => [
 		{ label: 'Recommend for you!', key: 'recommendation', icon: <LikeOutlined /> },
 		{
@@ -56,7 +58,7 @@ function App() {
 			</Header>
 			<Layout>
 				<Sider width={300} className='site-layout-background'>
-					<CustomSearch onSuccess={() => {}} />
+					<CustomSearch onSuccess={customSearchOnSuccess} />
 					<Menu
 						mode='inline'
 						onSelect={() => {}}

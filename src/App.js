@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, message, Menu } from 'antd'
 import { LikeOutlined, FireOutlined } from '@ant-design/icons'
-import { logout, getFavoriteItem, getTopGames } from './utils'
+import { logout, getFavoriteItem, getTopGames, searchGameById, getRecommendations } from './utils'
 import PageHeader from './components/PageHeader'
 import CustomSearch from './components/CustomSearch'
 const { Header, Content, Sider } = Layout
@@ -27,6 +27,10 @@ function App() {
 			})
 			.catch(err => message.error(err.message))
 	const customSearchOnSuccess = data => setResources(data)
+	const onGameSelect = ({ key }) =>
+		key === 'recommendation'
+			? getRecommendations().then(data => setResources(data))
+			: searchGameById(key).then(data => setResources(data))
 	const mapTopGamesToProps = topGames => [
 		{ label: 'Recommend for you!', key: 'recommendation', icon: <LikeOutlined /> },
 		{
@@ -61,7 +65,7 @@ function App() {
 					<CustomSearch onSuccess={customSearchOnSuccess} />
 					<Menu
 						mode='inline'
-						onSelect={() => {}}
+						onSelect={onGameSelect}
 						style={{ marginTop: '10px' }}
 						items={mapTopGamesToProps(topGames)}
 					/>
